@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://dcw378gqpw6s2"]
+
+[ext_resource type="Script" uid="uid://b6ldmvy5y4soc" path="res://scripts/title_screen.gd" id="1_aqpy5"]
+[ext_resource type="Texture2D" uid="uid://dtb5yhuh4jpug" path="res://scenes/MENU.jpg" id="1_eb34j"]
+[ext_resource type="PackedScene" path="res://scenes/ui/button_container.tscn" id="2_button_container"]
+
+[node name="TitleScreen" type="Control" unique_id=267057910]
+layout_mode = 3
+anchor_right = 3.3400002
+anchor_bottom = 3.3300002
+offset_right = 0.31982422
+offset_bottom = 0.15991211
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_aqpy5")
+
+[node name="Background" type="TextureRect" parent="." unique_id=591447882]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.001039501
+anchor_top = 0.0013901761
+anchor_right = 0.29911643
+anchor_bottom = 0.30120483
+texture = ExtResource("1_eb34j")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="ButtonContainer" parent="." unique_id=930159595 instance=ExtResource("2_button_container")]
+offset_right = -3700.0

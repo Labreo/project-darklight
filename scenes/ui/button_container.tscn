@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://bcss0h2mypfhl"]
+
+[ext_resource type="Script" uid="uid://dgwui5cxq54ga" path="res://scripts/button_container.gd" id="1_script"]
+
+[node name="ButtonContainer" type="Control" unique_id=626863896]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 37.0
+offset_top = 539.0
+offset_right = -2638.0
+offset_bottom = -1543.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1785688260]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Start" type="Button" parent="VBoxContainer" unique_id=2028445827]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "     "
+flat = true
+
+[node name="Quit" type="Button" parent="VBoxContainer" unique_id=39372310]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "    "
+flat = true

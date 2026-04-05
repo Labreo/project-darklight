@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Project Darklight"
-run/main_scene="uid://wxvcxgtr1vxq"
+run/main_scene="uid://dcw378gqpw6s2"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 
