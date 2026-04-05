@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://wxvcxgtr1vxq"]
+
+[node name="Main" type="Node" unique_id=1096816219]
+
+[node name="BottomBar" type="CanvasLayer" parent="." unique_id=91106234]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BottomBar" unique_id=430566654]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Button" type="Button" parent="BottomBar/HBoxContainer" unique_id=1921606050]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Investigate"
+
+[node name="Button2" type="Button" parent="BottomBar/HBoxContainer" unique_id=2005974386]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Talk"
+
+[node name="Button3" type="Button" parent="BottomBar/HBoxContainer" unique_id=96145379]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Map"
+
+[node name="Button4" type="Button" parent="BottomBar/HBoxContainer" unique_id=469531280]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Clue Log"
+
+[node name="Button5" type="Button" parent="BottomBar/HBoxContainer" unique_id=2066158824]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Revisit"
