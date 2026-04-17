@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dtb5yhuh4jpug"
-path="res://.godot/imported/MENU.jpg-08bc8ad89d977b95dc4193732bdfddf4.ctex"
+uid="uid://bl3rl7lud5lvl"
+path="res://.godot/imported/ApartmentFinal.jpg-40fe0be4850679ba4b97a242bb2329b1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/backgrounds/MENU.jpg"
-dest_files=["res://.godot/imported/MENU.jpg-08bc8ad89d977b95dc4193732bdfddf4.ctex"]
+source_file="res://art/backgrounds/ApartmentFinal.jpg"
+dest_files=["res://.godot/imported/ApartmentFinal.jpg-40fe0be4850679ba4b97a242bb2329b1.ctex"]
 
 [params]
 
