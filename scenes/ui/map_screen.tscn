@@ -8,61 +8,64 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -5.0
-offset_bottom = 9.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=953421325]
-layout_mode = 0
-offset_right = 1149.0
-offset_bottom = 659.0
-texture = SubResource("CompressedTexture2D_vc5ef")
-expand_mode = 2
-
-[node name="Apartement_UI" type="BoxContainer" parent="." unique_id=1606380790]
-layout_mode = 0
-offset_left = 183.0
-offset_top = 107.0
-offset_right = 383.0
-offset_bottom = 232.0
-
-[node name="enter_game_screen" type="Button" parent="Apartement_UI" unique_id=1239245372]
-layout_mode = 2
-text = "                        Apartement                      "
-
-[node name="Flim_Set_UI" type="BoxContainer" parent="." unique_id=1517839076]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.66
-anchor_top = 0.38000003
-anchor_right = 0.883
-anchor_bottom = 0.595
-offset_left = -0.32000732
-offset_top = -0.24002075
-offset_right = -0.21600342
-offset_bottom = -0.060028076
-grow_horizontal = 2
-grow_vertical = 2
-metadata/_edit_use_anchors_ = true
-
-[node name="enter_game_screen" type="Button" parent="Flim_Set_UI" unique_id=47482688]
-layout_mode = 2
-text = "                        Film Set                     "
-
-[node name="Police_Station_UI" type="BoxContainer" parent="." unique_id=978023962]
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.023000002
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 229.0
-offset_top = 416.096
-offset_right = -660.0
-offset_bottom = -79.0
-grow_horizontal = 0
-grow_vertical = 0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("CompressedTexture2D_vc5ef")
+expand_mode = 1
+stretch_mode = 6
 
-[node name="enter_game_screen" type="Button" parent="Police_Station_UI" unique_id=644653765]
-layout_mode = 2
-text = "                        Police Station                    "
+[node name="ApartmentButton" type="Button" parent="." unique_id=1239245372]
+custom_minimum_size = Vector2(220, 70)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.25
+anchor_top = 0.25
+anchor_right = 0.25
+anchor_bottom = 0.25
+offset_left = -110.0
+offset_top = -35.0
+offset_right = 110.0
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Apartment"
+
+[node name="FilmSetButton" type="Button" parent="." unique_id=47482688]
+custom_minimum_size = Vector2(220, 70)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.75
+anchor_top = 0.45
+anchor_right = 0.75
+anchor_bottom = 0.45
+offset_left = -110.0
+offset_top = -35.0
+offset_right = 110.0
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Film Set"
+
+[node name="PoliceStationButton" type="Button" parent="." unique_id=644653765]
+custom_minimum_size = Vector2(220, 70)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.40
+anchor_top = 0.75
+anchor_right = 0.40
+anchor_bottom = 0.75
+offset_left = -110.0
+offset_top = -35.0
+offset_right = 110.0
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Police Station"
