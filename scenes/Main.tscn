@@ -1,38 +1,224 @@
 [gd_scene format=3 uid="uid://wxvcxgtr1vxq"]
 
-[node name="Main" type="Node" unique_id=1096816219]
+[ext_resource type="Script" uid="uid://dxmain001gd00" path="res://scripts/main.gd" id="1_mainscript"]
 
+; ============================================================
+; Main scene — Project Darklight
+; Contains:
+;   BottomBar   — always-visible navigation (CanvasLayer)
+;   Overlays    — five mode panels (CanvasLayer above bottom bar)
+; ============================================================
+
+[node name="Main" type="Node" unique_id=1096816219]
+script = ExtResource("1_mainscript")
+
+; ─────────────────────────────────────────────────────────────
+; BOTTOM BAR  (layer 1)
+; ─────────────────────────────────────────────────────────────
 [node name="BottomBar" type="CanvasLayer" parent="." unique_id=91106234]
+layer = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="BottomBar" unique_id=430566654]
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -52.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="Button" type="Button" parent="BottomBar/HBoxContainer" unique_id=1921606050]
+[node name="BtnInvestigate" type="Button" parent="BottomBar/HBoxContainer" unique_id=1921606050]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Investigate"
+toggle_mode = true
 
-[node name="Button2" type="Button" parent="BottomBar/HBoxContainer" unique_id=2005974386]
+[node name="BtnTalk" type="Button" parent="BottomBar/HBoxContainer" unique_id=2005974386]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Talk"
+toggle_mode = true
 
-[node name="Button3" type="Button" parent="BottomBar/HBoxContainer" unique_id=96145379]
+[node name="BtnMap" type="Button" parent="BottomBar/HBoxContainer" unique_id=96145379]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Map"
+toggle_mode = true
 
-[node name="Button4" type="Button" parent="BottomBar/HBoxContainer" unique_id=469531280]
+[node name="BtnClueLog" type="Button" parent="BottomBar/HBoxContainer" unique_id=469531280]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Clue Log"
+toggle_mode = true
 
-[node name="Button5" type="Button" parent="BottomBar/HBoxContainer" unique_id=2066158824]
+[node name="BtnRevisit" type="Button" parent="BottomBar/HBoxContainer" unique_id=2066158824]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Revisit"
+toggle_mode = true
+
+; ─────────────────────────────────────────────────────────────
+; OVERLAYS  (layer 2 — sits above bottom bar, below nothing)
+; Five panels, all hidden by default.
+; ─────────────────────────────────────────────────────────────
+[node name="Overlays" type="CanvasLayer" parent="." unique_id=300000001]
+layer = 2
+
+; ── Investigate Panel ─────────────────────────────────────
+[node name="InvestigatePanel" type="PanelContainer" parent="Overlays" unique_id=300000002]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 0.0
+offset_bottom = -52.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="Overlays/InvestigatePanel" unique_id=300000003]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="Overlays/InvestigatePanel/VBox" unique_id=300000004]
+layout_mode = 2
+text = "INVESTIGATE"
+
+[node name="Body" type="Label" parent="Overlays/InvestigatePanel/VBox" unique_id=300000005]
+layout_mode = 2
+text = "Tap a hotspot to examine it. Discovered clues go automatically to your Clue Inventory."
+autowrap_mode = 3
+
+[node name="HotspotList" type="VBoxContainer" parent="Overlays/InvestigatePanel/VBox" unique_id=300000006]
+layout_mode = 2
+size_flags_vertical = 3
+
+; ── Talk Panel ────────────────────────────────────────────
+[node name="TalkPanel" type="PanelContainer" parent="Overlays" unique_id=300000010]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -52.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="Overlays/TalkPanel" unique_id=300000011]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="Overlays/TalkPanel/VBox" unique_id=300000012]
+layout_mode = 2
+text = "TALK"
+
+[node name="Body" type="Label" parent="Overlays/TalkPanel/VBox" unique_id=300000013]
+layout_mode = 2
+text = "Characters currently at this location. Tap one to start a conversation."
+autowrap_mode = 3
+
+[node name="CharacterList" type="VBoxContainer" parent="Overlays/TalkPanel/VBox" unique_id=300000014]
+layout_mode = 2
+size_flags_vertical = 3
+
+; ── Map Panel ─────────────────────────────────────────────
+[node name="MapPanel" type="PanelContainer" parent="Overlays" unique_id=300000020]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -52.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="Overlays/MapPanel" unique_id=300000021]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="Overlays/MapPanel/VBox" unique_id=300000022]
+layout_mode = 2
+text = "MAP"
+
+[node name="Body" type="Label" parent="Overlays/MapPanel/VBox" unique_id=300000023]
+layout_mode = 2
+text = "Select an unlocked location to travel there. New locations unlock as the investigation progresses."
+autowrap_mode = 3
+
+[node name="LocationList" type="VBoxContainer" parent="Overlays/MapPanel/VBox" unique_id=300000024]
+layout_mode = 2
+size_flags_vertical = 3
+
+; ── Clue Log Panel ────────────────────────────────────────
+[node name="ClueLogPanel" type="PanelContainer" parent="Overlays" unique_id=300000030]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -52.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="Overlays/ClueLogPanel" unique_id=300000031]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="Overlays/ClueLogPanel/VBox" unique_id=300000032]
+layout_mode = 2
+text = "CLUE LOG"
+
+[node name="Body" type="Label" parent="Overlays/ClueLogPanel/VBox" unique_id=300000033]
+layout_mode = 2
+text = "All collected clues. Tap any card to re-read what it reveals and where it was found."
+autowrap_mode = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Overlays/ClueLogPanel/VBox" unique_id=300000034]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ClueList" type="VBoxContainer" parent="Overlays/ClueLogPanel/VBox/ScrollContainer" unique_id=300000035]
+layout_mode = 2
+size_flags_horizontal = 3
+
+; ── Revisit Panel ─────────────────────────────────────────
+[node name="RevisitPanel" type="PanelContainer" parent="Overlays" unique_id=300000040]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -52.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="Overlays/RevisitPanel" unique_id=300000041]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="Overlays/RevisitPanel/VBox" unique_id=300000042]
+layout_mode = 2
+text = "REVISIT"
+
+[node name="Body" type="Label" parent="Overlays/RevisitPanel/VBox" unique_id=300000043]
+layout_mode = 2
+text = "All scenes visited. Return to any scene to search for clues you may have missed — some are missable on first visit!"
+autowrap_mode = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Overlays/RevisitPanel/VBox" unique_id=300000044]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="RevisitList" type="VBoxContainer" parent="Overlays/RevisitPanel/VBox/ScrollContainer" unique_id=300000045]
+layout_mode = 2
+size_flags_horizontal = 3

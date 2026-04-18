@@ -1,12 +1,15 @@
 [gd_scene format=3 uid="uid://crbyaid84urdx"]
 
-[ext_resource type="Texture2D" uid="uid://domh82dyiwbox" path="res://art/backgrounds/placeholder-map.jpg" id="1_thmwg"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vc5ef"]
+load_path = "res://.godot/imported/placeholder-map.jpg-86dd539f787afabd8940b220ebe1aea6.ctex"
 
 [node name="map_screen" type="Control" unique_id=574984620]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = -5.0
+offset_bottom = 9.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -14,7 +17,8 @@ grow_vertical = 2
 layout_mode = 0
 offset_right = 1149.0
 offset_bottom = 659.0
-texture = ExtResource("1_thmwg")
+texture = SubResource("CompressedTexture2D_vc5ef")
+expand_mode = 2
 
 [node name="Apartement_UI" type="BoxContainer" parent="." unique_id=1606380790]
 layout_mode = 0
