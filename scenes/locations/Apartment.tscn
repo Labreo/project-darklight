@@ -14,7 +14,20 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_aptscript")
 
-[node name="Background" type="TextureRect" parent="." unique_id=1471525324]
+
+[node name="PlayArea" type="AspectRatioContainer" parent="." unique_id=999999999]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+ratio = 1.77778
+alignment_horizontal = 1
+alignment_vertical = 1
+mouse_filter = 2
+
+[node name="Background" type="TextureRect" parent="PlayArea" unique_id=1471525324]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -26,7 +39,7 @@ texture = ExtResource("3_bg")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="Hotspots" type="Control" parent="." unique_id=1798810560]
+[node name="Hotspots" type="Control" parent="PlayArea" unique_id=1798810560]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -36,22 +49,20 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="C1_Hotspot" type="Control" parent="Hotspots" unique_id=263165879]
-anchors_preset = 0
-offset_left = 304.0
-offset_top = 523.0
-offset_right = 396.0
-offset_bottom = 593.0
+anchor_left = 0.263889
+anchor_top = 0.807099
+anchor_right = 0.343750
+anchor_bottom = 0.915123
 script = ExtResource("2_hotspot")
 clue_id = "C1"
 clue_title = "Three Empty Whiskey Glasses"
 clue_description = "Three glasses, all drained. Felix was drinking heavily before the party — well beyond a social drink."
 
 [node name="C2_Hotspot" type="Control" parent="Hotspots" unique_id=1050439502]
-anchors_preset = 0
-offset_left = 416.0
-offset_top = 581.0
-offset_right = 484.0
-offset_bottom = 632.0
+anchor_left = 0.361111
+anchor_top = 0.896605
+anchor_right = 0.420139
+anchor_bottom = 0.975309
 script = ExtResource("2_hotspot")
 clue_id = "C2"
 clue_title = "Felix's Phone"
@@ -59,11 +70,10 @@ clue_description = "Angry messages about money. Last message sent to Felicia at 
 phone_mode = true
 
 [node name="C3_Hotspot" type="Control" parent="Hotspots" unique_id=633606242]
-anchors_preset = 0
-offset_left = 286.0
-offset_top = 222.0
-offset_right = 327.0
-offset_bottom = 253.0
+anchor_left = 0.248264
+anchor_top = 0.342593
+anchor_right = 0.283854
+anchor_bottom = 0.390432
 script = ExtResource("2_hotspot")
 clue_id = "C3"
 clue_title = "Felicia's Script — Margin Note"
@@ -72,11 +82,10 @@ clue_description = "Scrawled in the margin in Felicia's handwriting:
 She was planning to quit."
 
 [node name="C4_Hotspot" type="Control" parent="Hotspots" unique_id=117755283]
-anchors_preset = 0
-offset_left = 918.0
-offset_top = 462.0
-offset_right = 987.0
-offset_bottom = 506.0
+anchor_left = 0.796875
+anchor_top = 0.712963
+anchor_right = 0.856771
+anchor_bottom = 0.780864
 script = ExtResource("2_hotspot")
 clue_id = "C4"
 clue_title = "Torn Envelope — 14 Crestview Lane"
@@ -86,11 +95,10 @@ This is a KEY CLUE."
 is_key_clue = true
 
 [node name="C5_Hotspot" type="Control" parent="Hotspots" unique_id=1241574343]
-anchors_preset = 0
-offset_left = 770.0
-offset_top = 90.0
-offset_right = 851.0
-offset_bottom = 197.0
+anchor_left = 0.668403
+anchor_top = 0.138889
+anchor_right = 0.738715
+anchor_bottom = 0.304012
 script = ExtResource("2_hotspot")
 clue_id = "C5"
 clue_title = "Wall Calendar"
@@ -98,11 +106,10 @@ clue_description = "The next full week is blocked off in red marker: 'PERSONAL �
 Felicia was planning to disappear."
 
 [node name="C6_Hotspot" type="Control" parent="Hotspots" unique_id=383914929]
-anchors_preset = 0
-offset_left = 282.0
-offset_top = 355.0
-offset_right = 468.0
-offset_bottom = 471.0
+anchor_left = 0.244792
+anchor_top = 0.547840
+anchor_right = 0.406250
+anchor_bottom = 0.726852
 script = ExtResource("2_hotspot")
 clue_id = "C6"
 clue_title = "Unanswered Letters"

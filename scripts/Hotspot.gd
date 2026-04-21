@@ -1,17 +1,10 @@
 extends Control
 
 # ===========================================================================
-# Hotspot.gd  (Control-based, viewport-stretch-safe)
+# Hotspot.gd  (Control-based using native Godot GUI input)
 # ---------------------------------------------------------------------------
-# Uses _unhandled_input() + get_viewport().get_mouse_position() instead of
-# _gui_input(), because _gui_input() hit-testing breaks when the window uses
-# "Keep Aspect Ratio" or "Stretch to Fit" — the Control rect is in viewport
-# space but the engine's hit test converts the mouse from screen space without
-# accounting for the aspect-correct letterbox offset.
-#
-# get_global_rect()               → rect in viewport / canvas space
-# get_viewport().get_mouse_position() → position in viewport space
-# These two are always in the same space regardless of window stretch mode.
+# Attach to any transparent Control node that covers a clickable prop in the
+# apartment scene.
 # ===========================================================================
 
 @export var clue_id          : String   = ""
@@ -20,60 +13,48 @@ extends Control
 @export var scene_name       : String   = "The Apartment"
 @export var is_key_clue      : bool     = false
 @export var phone_mode       : bool     = false
-## res:// path to the clue sprite image.  Stored in GameState for the Clue Log.
+## Filesystem path to the clue's sprite image. Stored in GameState.
 @export var clue_image_path  : String   = ""
 @export var clue_card_path   : NodePath = NodePath("../../UI/ClueCard")
 
 signal hotspot_activated(clue_id: String)
 
-var _clue_card   : Node = null
-var _prev_inside : bool = false
-
-# Shared cursor ownership across all Hotspot instances (static = class-level).
-# Prevents multiple _process() calls from fighting over the cursor shape.
-static var _cursor_owner : WeakRef = null
+var _clue_card : Node = null
 
 # ---------------------------------------------------------------------------
 func _ready() -> void:
-	# IGNORE means the Control doesn't participate in the engine's GUI hit
-	# system at all.  We do our own hit testing in _unhandled_input() below.
-	mouse_filter = Control.MOUSE_FILTER_IGNORE
+	# Must be STOP so this Control receives _gui_input events natively!
+	mouse_filter = Control.MOUSE_FILTER_STOP
 
 	_clue_card = get_node_or_null(clue_card_path)
 	if _clue_card == null:
 		push_warning("[Hotspot:%s] ClueCard not found at '%s'." % [clue_id, clue_card_path])
 
+	# Cursor signals
+	mouse_entered.connect(_on_mouse_entered)
+	mouse_exited.connect(_on_mouse_exited)
+
 	if is_key_clue:
 		_start_pulse_animation()
 
 # ---------------------------------------------------------------------------
-# Input — viewport-stretch-safe click detection
+# Cursor
 # ---------------------------------------------------------------------------
-func _unhandled_input(event: InputEvent) -> void:
+func _on_mouse_entered() -> void:
+	Input.set_default_cursor_shape(Input.CURSOR_POINTING_HAND)
+
+func _on_mouse_exited() -> void:
+	Input.set_default_cursor_shape(Input.CURSOR_ARROW)
+
+# ---------------------------------------------------------------------------
+# Click handler — Godot handles hit-testing automatically under all scales
+# ---------------------------------------------------------------------------
+func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		var mb := event as InputEventMouseButton
 		if mb.button_index == MOUSE_BUTTON_LEFT and mb.pressed:
-			# get_global_mouse_position() is in Canvas space, matching get_global_rect() exactly.
-			if get_global_rect().has_point(get_global_mouse_position()):
-				_activate()
-				get_viewport().set_input_as_handled()
-
-# ---------------------------------------------------------------------------
-# Cursor — checked every frame, viewport-stretch-safe
-# ---------------------------------------------------------------------------
-func _process(_delta: float) -> void:
-	var m      := get_global_mouse_position()
-	var inside := get_global_rect().has_point(m)
-	var i_own := false
-	if _cursor_owner != null and _cursor_owner.get_ref() == self:
-		i_own = true
-
-	if inside and not i_own:
-		_cursor_owner = weakref(self)
-		Input.set_default_cursor_shape(Input.CURSOR_POINTING_HAND)
-	elif not inside and i_own:
-		_cursor_owner = null
-		Input.set_default_cursor_shape(Input.CURSOR_ARROW)
+			_activate()
+			accept_event()  # Stop propagation
 
 # ---------------------------------------------------------------------------
 # Activation
@@ -89,7 +70,7 @@ func _activate() -> void:
 	print("[Hotspot] '%s' activated." % clue_id)
 
 func _show_clue_card() -> void:
-	# Lazy re-resolve in case _ready() ran before the ClueCard entered the tree.
+	# Lazy re-resolve in case _ready ran too early
 	if _clue_card == null:
 		_clue_card = get_node_or_null(clue_card_path)
 	if _clue_card == null or not _clue_card.has_method("show_clue"):
@@ -98,9 +79,10 @@ func _show_clue_card() -> void:
 	_clue_card.show_clue(clue_id, clue_title, clue_description, phone_mode)
 
 # ---------------------------------------------------------------------------
-# Key-clue pulse (scale bounce on this transparent Control)
+# Key-clue pulse (scale bounce on the transparent Control itself)
 # ---------------------------------------------------------------------------
 func _start_pulse_animation() -> void:
+	pivot_offset = size / 2.0  # Ensure it scales from the center
 	var tween := create_tween()
 	tween.set_loops()
 	tween.set_trans(Tween.TRANS_SINE)
