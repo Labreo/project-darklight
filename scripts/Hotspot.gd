@@ -70,9 +70,14 @@ func _activate() -> void:
 	print("[Hotspot] '%s' activated. New: %s" % [clue_id, is_new])
 
 func _show_clue_card(is_new: bool) -> void:
-	# Lazy re-resolve in case _ready ran too early
+	# Resilient lookup: Look for UI/ClueCard starting from the scene root (Apartment),
+	# bypassing fragile relative directory paths.
 	if _clue_card == null:
-		_clue_card = get_node_or_null(clue_card_path)
+		if owner != null and owner.has_node("UI/ClueCard"):
+			_clue_card = owner.get_node("UI/ClueCard")
+		else:
+			_clue_card = get_node_or_null(clue_card_path)
+			
 	if _clue_card == null or not _clue_card.has_method("show_clue"):
 		push_warning("[Hotspot:%s] ClueCard missing or has no show_clue()." % clue_id)
 		return
