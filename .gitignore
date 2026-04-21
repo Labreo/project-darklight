@@ -2,5 +2,5 @@
 .godot/
 export_presets.cfg
 *.translation
-
+.DS_Store
 .vscode
