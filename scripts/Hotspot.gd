@@ -53,10 +53,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		var mb := event as InputEventMouseButton
 		if mb.button_index == MOUSE_BUTTON_LEFT and mb.pressed:
-			# get_viewport().get_mouse_position() is always in viewport space.
-			# get_global_rect()                 is always in viewport space.
-			# Both agree regardless of window stretch / letterbox offset.
-			if get_global_rect().has_point(get_viewport().get_mouse_position()):
+			# get_global_mouse_position() is in Canvas space, matching get_global_rect() exactly.
+			if get_global_rect().has_point(get_global_mouse_position()):
 				_activate()
 				get_viewport().set_input_as_handled()
 
@@ -64,7 +62,7 @@ func _unhandled_input(event: InputEvent) -> void:
 # Cursor — checked every frame, viewport-stretch-safe
 # ---------------------------------------------------------------------------
 func _process(_delta: float) -> void:
-	var m      := get_viewport().get_mouse_position()
+	var m      := get_global_mouse_position()
 	var inside := get_global_rect().has_point(m)
 	var i_own := false
 	if _cursor_owner != null and _cursor_owner.get_ref() == self:
