@@ -1,26 +1,17 @@
 extends Control
 
 # ===========================================================================
-# Hotspot.gd  (Control-based — no Area2D, no CollisionShape2D)
+# Hotspot.gd  (Control-based, viewport-stretch-safe)
 # ---------------------------------------------------------------------------
-# Attach to any transparent Control node that covers a clickable prop in the
-# apartment scene.  Works identically to the old Area2D version but uses
-# Godot's UI input system, which maps 1-to-1 with screen pixels and therefore
-# requires no Camera2D or coordinate conversion.
+# Uses _unhandled_input() + get_viewport().get_mouse_position() instead of
+# _gui_input(), because _gui_input() hit-testing breaks when the window uses
+# "Keep Aspect Ratio" or "Stretch to Fit" — the Control rect is in viewport
+# space but the engine's hit test converts the mouse from screen space without
+# accounting for the aspect-correct letterbox offset.
 #
-# How it works:
-#   • mouse_entered / mouse_exited  → cursor changes to pointing hand
-#   • gui_input (left click)        → adds clue to GameState; shows ClueCard
-#   • is_key_clue = true            → starts a subtle scale-pulse tween
-#
-# Inspector configuration (set once in the editor per hotspot):
-#   clue_id          – e.g. "C4"
-#   clue_title       – Short headline shown on the clue card
-#   clue_description – What the clue reveals
-#   scene_name       – Location label in the Clue Log
-#   is_key_clue      – Enables pulse animation for critical clues
-#   phone_mode       – C2 only: shows the texts layout on the clue card
-#   clue_card_path   – NodePath to the shared ClueCard node
+# get_global_rect()               → rect in viewport / canvas space
+# get_viewport().get_mouse_position() → position in viewport space
+# These two are always in the same space regardless of window stretch mode.
 # ===========================================================================
 
 @export var clue_id          : String   = ""
@@ -29,51 +20,60 @@ extends Control
 @export var scene_name       : String   = "The Apartment"
 @export var is_key_clue      : bool     = false
 @export var phone_mode       : bool     = false
-## Filesystem path to the clue's sprite image (e.g. "res://art/.../c1.png").
-## Stored in GameState and shown as a thumbnail in the Clue Log.
+## res:// path to the clue sprite image.  Stored in GameState for the Clue Log.
 @export var clue_image_path  : String   = ""
 @export var clue_card_path   : NodePath = NodePath("../../UI/ClueCard")
 
 signal hotspot_activated(clue_id: String)
 
-var _clue_card : Node = null
+var _clue_card   : Node = null
+var _prev_inside : bool = false
+
+# Shared cursor ownership across all Hotspot instances (static = class-level).
+# Prevents multiple _process() calls from fighting over the cursor shape.
+static var _cursor_owner : WeakRef = null
 
 # ---------------------------------------------------------------------------
 func _ready() -> void:
-	# Must be STOP so this Control receives gui_input events.
-	mouse_filter = Control.MOUSE_FILTER_STOP
+	# IGNORE means the Control doesn't participate in the engine's GUI hit
+	# system at all.  We do our own hit testing in _unhandled_input() below.
+	mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 	_clue_card = get_node_or_null(clue_card_path)
 	if _clue_card == null:
 		push_warning("[Hotspot:%s] ClueCard not found at '%s'." % [clue_id, clue_card_path])
 
-	# Cursor signals — still connect these as normal signals.
-	mouse_entered.connect(_on_mouse_entered)
-	mouse_exited.connect(_on_mouse_exited)
-
 	if is_key_clue:
 		_start_pulse_animation()
 
 # ---------------------------------------------------------------------------
-# Cursor
+# Input — viewport-stretch-safe click detection
 # ---------------------------------------------------------------------------
-func _on_mouse_entered() -> void:
-	Input.set_default_cursor_shape(Input.CURSOR_POINTING_HAND)
-
-func _on_mouse_exited() -> void:
-	Input.set_default_cursor_shape(Input.CURSOR_ARROW)
-
-# ---------------------------------------------------------------------------
-# Click handler — override the virtual method directly.
-# This is more reliable than connecting the gui_input signal because it is
-# called by the engine regardless of script hot-reload state.
-# ---------------------------------------------------------------------------
-func _gui_input(event: InputEvent) -> void:
+func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		var mb := event as InputEventMouseButton
 		if mb.button_index == MOUSE_BUTTON_LEFT and mb.pressed:
-			_activate()
-			accept_event()  # stop the click propagating to nodes below
+			# get_viewport().get_mouse_position() is always in viewport space.
+			# get_global_rect()                 is always in viewport space.
+			# Both agree regardless of window stretch / letterbox offset.
+			if get_global_rect().has_point(get_viewport().get_mouse_position()):
+				_activate()
+				get_viewport().set_input_as_handled()
+
+# ---------------------------------------------------------------------------
+# Cursor — checked every frame, viewport-stretch-safe
+# ---------------------------------------------------------------------------
+func _process(_delta: float) -> void:
+	var m      := get_viewport().get_mouse_position()
+	var inside := get_global_rect().has_point(m)
+	var i_own  := _cursor_owner != null and _cursor_owner.get_ref() == self
+
+	if inside and not i_own:
+		_cursor_owner = weakref(self)
+		Input.set_default_cursor_shape(Input.CURSOR_POINTING_HAND)
+	elif not inside and i_own:
+		_cursor_owner = null
+		Input.set_default_cursor_shape(Input.CURSOR_ARROW)
 
 # ---------------------------------------------------------------------------
 # Activation
@@ -89,7 +89,7 @@ func _activate() -> void:
 	print("[Hotspot] '%s' activated." % clue_id)
 
 func _show_clue_card() -> void:
-	# Lazy re-resolve: _ready() might have run before the ClueCard was ready.
+	# Lazy re-resolve in case _ready() ran before the ClueCard entered the tree.
 	if _clue_card == null:
 		_clue_card = get_node_or_null(clue_card_path)
 	if _clue_card == null or not _clue_card.has_method("show_clue"):
@@ -98,7 +98,7 @@ func _show_clue_card() -> void:
 	_clue_card.show_clue(clue_id, clue_title, clue_description, phone_mode)
 
 # ---------------------------------------------------------------------------
-# Key-clue pulse (scale bounce on the transparent Control itself)
+# Key-clue pulse (scale bounce on this transparent Control)
 # ---------------------------------------------------------------------------
 func _start_pulse_animation() -> void:
 	var tween := create_tween()
