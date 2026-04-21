@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://crbyaid84urdx"]
 
+[ext_resource type="Script" path="res://scripts/map_screen.gd" id="1_mapscript"]
+
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vc5ef"]
 load_path = "res://.godot/imported/placeholder-map.jpg-86dd539f787afabd8940b220ebe1aea6.ctex"
 
@@ -10,6 +12,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_mapscript")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=953421325]
 layout_mode = 1

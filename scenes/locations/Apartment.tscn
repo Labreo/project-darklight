@@ -1,0 +1,116 @@
+[gd_scene format=3 uid="uid://c8nu43xsx6ywi"]
+
+[ext_resource type="Script" uid="uid://cjsj85r75iucs" path="res://scripts/apartment.gd" id="1_aptscript"]
+[ext_resource type="Script" uid="uid://1h1tdt3h8sh3" path="res://scripts/Hotspot.gd" id="2_hotspot"]
+[ext_resource type="Texture2D" uid="uid://bl3rl7lud5lvl" path="res://art/backgrounds/ApartmentFinal.jpg" id="3_bg"]
+[ext_resource type="PackedScene" path="res://scenes/ui/ClueCard.tscn" id="10_cluecard"]
+
+[node name="Apartment" type="Control" unique_id=440301448]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_aptscript")
+
+[node name="Background" type="TextureRect" parent="." unique_id=1471525324]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3_bg")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Hotspots" type="Control" parent="." unique_id=1798810560]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="C1_Hotspot" type="Control" parent="Hotspots" unique_id=263165879]
+anchors_preset = 0
+offset_left = 304.0
+offset_top = 523.0
+offset_right = 396.0
+offset_bottom = 593.0
+script = ExtResource("2_hotspot")
+clue_id = "C1"
+clue_title = "Three Empty Whiskey Glasses"
+clue_description = "Three glasses, all drained. Felix was drinking heavily before the party — well beyond a social drink."
+
+[node name="C2_Hotspot" type="Control" parent="Hotspots" unique_id=1050439502]
+anchors_preset = 0
+offset_left = 416.0
+offset_top = 581.0
+offset_right = 484.0
+offset_bottom = 632.0
+script = ExtResource("2_hotspot")
+clue_id = "C2"
+clue_title = "Felix's Phone"
+clue_description = "Angry messages about money. Last message sent to Felicia at 7 PM."
+phone_mode = true
+
+[node name="C3_Hotspot" type="Control" parent="Hotspots" unique_id=633606242]
+anchors_preset = 0
+offset_left = 286.0
+offset_top = 222.0
+offset_right = 327.0
+offset_bottom = 253.0
+script = ExtResource("2_hotspot")
+clue_id = "C3"
+clue_title = "Felicia's Script — Margin Note"
+clue_description = "Scrawled in the margin in Felicia's handwriting:
+\"I don't want to do this anymore.\"
+She was planning to quit."
+
+[node name="C4_Hotspot" type="Control" parent="Hotspots" unique_id=117755283]
+anchors_preset = 0
+offset_left = 918.0
+offset_top = 462.0
+offset_right = 987.0
+offset_bottom = 506.0
+script = ExtResource("2_hotspot")
+clue_id = "C4"
+clue_title = "Torn Envelope — 14 Crestview Lane"
+clue_description = "A torn envelope, half-hidden beneath a takeout container.
+Return address: 14 Crestview Lane — Mallory's address.
+This is a KEY CLUE."
+is_key_clue = true
+
+[node name="C5_Hotspot" type="Control" parent="Hotspots" unique_id=1241574343]
+anchors_preset = 0
+offset_left = 770.0
+offset_top = 90.0
+offset_right = 851.0
+offset_bottom = 197.0
+script = ExtResource("2_hotspot")
+clue_id = "C5"
+clue_title = "Wall Calendar"
+clue_description = "The next full week is blocked off in red marker: 'PERSONAL — NO SHOOTS'.
+Felicia was planning to disappear."
+
+[node name="C6_Hotspot" type="Control" parent="Hotspots" unique_id=383914929]
+anchors_preset = 0
+offset_left = 282.0
+offset_top = 355.0
+offset_right = 468.0
+offset_bottom = 471.0
+script = ExtResource("2_hotspot")
+clue_id = "C6"
+clue_title = "Unanswered Letters"
+clue_description = "A stack of unopened envelopes in the drawer.
+All from Mallory — none read.
+Felicia had been deliberately avoiding contact."
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=719477367]
+layer = 5
+
+[node name="ClueCard" parent="UI" unique_id=487922365 instance=ExtResource("10_cluecard")]

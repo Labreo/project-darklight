@@ -1,0 +1,89 @@
+[gd_scene load_steps=3 format=3 uid="uid://cluecard_scene"]
+
+; ===========================================================================
+; ClueCard.tscn
+; ---------------------------------------------------------------------------
+; A reusable popup overlay for displaying clue reveals.
+; Attach this as a child of any location scene's UI node.
+;
+; Node tree:
+;   ClueCard          CanvasLayer (layer=10) – sits above gameplay
+;   └── Panel         PanelContainer – centred dialog box
+;       └── VBoxContainer
+;           ├── LblClueId       Label  – "CLUE C4"
+;           ├── LblTitle        Label  – clue title
+;           ├── HSeparator
+;           ├── PhoneContainer  VBoxContainer – phone bubbles (C2 only)
+;           ├── LblDescription  Label  – standard reveal text
+;           └── BtnClose        Button – "Got it ✓"
+; ===========================================================================
+
+[ext_resource type="Script" path="res://scripts/ClueCard.gd" id="1_cluecard"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.08, 0.08, 0.12, 0.97)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.8, 0.7, 0.2, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+content_margin_left = 24.0
+content_margin_top = 20.0
+content_margin_right = 24.0
+content_margin_bottom = 20.0
+
+[node name="ClueCard" type="CanvasLayer"]
+layer = 10
+script = ExtResource("1_cluecard")
+
+[node name="Panel" type="PanelContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -280.0
+offset_top = -220.0
+offset_right = 280.0
+offset_bottom = 220.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="LblClueId" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "CLUE  C0"
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.8, 0.7, 0.2, 1)
+
+[node name="LblTitle" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Clue Title"
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+
+[node name="HSeparator" type="HSeparator" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="PhoneContainer" type="VBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+visible = false
+
+[node name="LblDescription" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Clue description. Replace at runtime."
+autowrap_mode = 3
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.85, 0.85, 0.85, 1)
+
+[node name="BtnClose" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Got it  ✓"
+alignment = 1
+theme_override_font_sizes/font_size = 14
