@@ -66,7 +66,9 @@ func _unhandled_input(event: InputEvent) -> void:
 func _process(_delta: float) -> void:
 	var m      := get_viewport().get_mouse_position()
 	var inside := get_global_rect().has_point(m)
-	var i_own  := _cursor_owner != null and _cursor_owner.get_ref() == self
+	var i_own := false
+	if _cursor_owner != null and _cursor_owner.get_ref() == self:
+		i_own = true
 
 	if inside and not i_own:
 		_cursor_owner = weakref(self)
