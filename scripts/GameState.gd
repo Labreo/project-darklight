@@ -52,14 +52,14 @@ var pending_scene_path: String = ""
 
 # ---------------------------------------------------------------------------
 # add_clue
-# Adds a clue to the inventory.  Silently ignores duplicates (same id).
+# Adds a clue to the inventory. Returns true if new, false if duplicate.
 # Emits clue_added so any UI panel can refresh itself.
 # ---------------------------------------------------------------------------
-func add_clue(id: String, title: String, description: String, scene: String, image_path: String = "") -> void:
+func add_clue(id: String, title: String, description: String, scene: String, image_path: String = "") -> bool:
 	# Guard against duplicates
 	for existing in clues:
 		if existing["id"] == id:
-			return
+			return false
 
 	var clue: Dictionary = {
 		"id":          id,
@@ -70,6 +70,7 @@ func add_clue(id: String, title: String, description: String, scene: String, ima
 		"timestamp":   Time.get_ticks_msec() / 1000.0,
 	}
 	clues.append(clue)
+	print("[GameState] New clue added: ", id)
 	emit_signal("clue_added", clue)
 
 	# Log extra context for key clues so the console makes the importance clear.
@@ -78,6 +79,8 @@ func add_clue(id: String, title: String, description: String, scene: String, ima
 		print("[GameState]   Key clues found so far: ", _found_key_clue_ids())
 	else:
 		print("[GameState] Clue collected: ", title, " (", id, ")")
+	
+	return true
 
 # ---------------------------------------------------------------------------
 # unlock_location

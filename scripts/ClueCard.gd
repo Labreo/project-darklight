@@ -30,6 +30,7 @@ extends CanvasLayer
 # ── Node references (filled in _ready via @onready) ─────────────────────────
 @onready var panel           : PanelContainer = $Panel
 @onready var lbl_clue_id     : Label          = $Panel/VBoxContainer/LblClueId
+@onready var lbl_status      : Label          = $Panel/VBoxContainer/LblStatus
 @onready var lbl_title       : Label          = $Panel/VBoxContainer/LblTitle
 @onready var lbl_description : Label          = $Panel/VBoxContainer/LblDescription
 @onready var phone_container : VBoxContainer  = $Panel/VBoxContainer/PhoneContainer
@@ -72,10 +73,18 @@ func _unhandled_input(event: InputEvent) -> void:
 ##   title       – Short display name shown as the card headline
 ##   description – Full reveal text shown to the player
 ##   is_phone    – When true, renders the phone-texts layout (C2 only)
-func show_clue(id: String, title: String, description: String, is_phone: bool = false) -> void:
+##   is_new      – True if newly discovered, false if already logged
+func show_clue(id: String, title: String, description: String, is_phone: bool = false, is_new: bool = true) -> void:
 	# ── Populate shared fields ───────────────────────────────────────────────
 	lbl_clue_id.text = "CLUE  %s" % id.to_upper()
 	lbl_title.text   = title
+	
+	if is_new:
+		lbl_status.text = "★ NEW FIND LOGGED"
+		lbl_status.add_theme_color_override("font_color", Color(0.4, 0.9, 0.4))
+	else:
+		lbl_status.text = "✓ ALREADY LOGGED"
+		lbl_status.add_theme_color_override("font_color", Color(0.6, 0.6, 0.6))
 
 	if is_phone:
 		# ── Phone mode (C2 — Felix's phone) ─────────────────────────────────

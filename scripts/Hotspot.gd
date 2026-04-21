@@ -15,7 +15,7 @@ extends Control
 @export var phone_mode       : bool     = false
 ## Filesystem path to the clue's sprite image. Stored in GameState.
 @export var clue_image_path  : String   = ""
-@export var clue_card_path   : NodePath = NodePath("../../UI/ClueCard")
+@export var clue_card_path   : NodePath = NodePath("../../../UI/ClueCard")
 
 signal hotspot_activated(clue_id: String)
 
@@ -64,19 +64,19 @@ func _activate() -> void:
 		push_error("[Hotspot] clue_id is empty — set it in the Inspector.")
 		return
 
-	GameState.add_clue(clue_id, clue_title, clue_description, scene_name, clue_image_path)
-	_show_clue_card()
+	var is_new: bool = GameState.add_clue(clue_id, clue_title, clue_description, scene_name, clue_image_path)
+	_show_clue_card(is_new)
 	emit_signal("hotspot_activated", clue_id)
-	print("[Hotspot] '%s' activated." % clue_id)
+	print("[Hotspot] '%s' activated. New: %s" % [clue_id, is_new])
 
-func _show_clue_card() -> void:
+func _show_clue_card(is_new: bool) -> void:
 	# Lazy re-resolve in case _ready ran too early
 	if _clue_card == null:
 		_clue_card = get_node_or_null(clue_card_path)
 	if _clue_card == null or not _clue_card.has_method("show_clue"):
 		push_warning("[Hotspot:%s] ClueCard missing or has no show_clue()." % clue_id)
 		return
-	_clue_card.show_clue(clue_id, clue_title, clue_description, phone_mode)
+	_clue_card.show_clue(clue_id, clue_title, clue_description, phone_mode, is_new)
 
 # ---------------------------------------------------------------------------
 # Key-clue pulse (scale bounce on the transparent Control itself)
