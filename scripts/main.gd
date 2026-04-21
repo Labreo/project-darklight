@@ -90,11 +90,13 @@ func travel_to(scene_path: String) -> void:
 
 	_current_scene = packed.instantiate()
 
-	# If the scene is a Control, make it fill the GameView rect.
+	# Add to the tree FIRST — the parent rect must be known before
+	# set_anchors_and_offsets_preset() can calculate correct layout.
+	game_view.add_child(_current_scene)
+
+	# Now that the node is in the tree, apply full-rect anchors.
 	if _current_scene is Control:
 		(_current_scene as Control).set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-
-	game_view.add_child(_current_scene)
 
 	# Derive a scene_id from the file name (e.g. "Apartment").
 	var scene_id := scene_path.get_file().get_basename().to_lower()
