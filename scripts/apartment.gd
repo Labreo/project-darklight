@@ -10,6 +10,5 @@ extends Control
 # ===========================================================================
 
 func _ready() -> void:
-	# Register the apartment as visited so it appears in the Revisit panel.
-	GameState.visit_scene("apartment")
+	# Main.gd handles adding this to the visited scenes list.
 	print("[Apartment] Scene ready.")

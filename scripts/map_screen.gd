@@ -40,8 +40,7 @@ func _on_apartment_pressed() -> void:
 	_travel_to("res://scenes/locations/Apartment.tscn")
 
 func _on_film_set_pressed() -> void:
-	# Placeholder: Film Set not built yet.
-	print("[MapScreen] Film Set not yet implemented.")
+	_travel_to("res://scenes/locations/Film_Set.tscn")
 
 func _on_police_station_pressed() -> void:
 	# Placeholder: Police Station not built yet.

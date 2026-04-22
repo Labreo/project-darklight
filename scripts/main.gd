@@ -99,7 +99,7 @@ func travel_to(scene_path: String) -> void:
 		(_current_scene as Control).set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 
 	# Derive a scene_id from the file name (e.g. "Apartment").
-	var scene_id := scene_path.get_file().get_basename().to_lower()
+	var scene_id := scene_path.get_file().get_basename()
 	GameState.visit_scene(scene_id)
 
 	# Close any open overlay so the player can see the new scene.
@@ -239,7 +239,7 @@ func _refresh_revisit_list() -> void:
 			btn.text = scene_id.replace("_", " ").capitalize()
 			btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 			# Map scene_id back to the full path.
-			var path := "res://scenes/locations/%s.tscn" % scene_id.capitalize()
+			var path := "res://scenes/locations/%s.tscn" % scene_id
 			btn.pressed.connect(func(): travel_to(path))
 			revisit_list.add_child(btn)
 
