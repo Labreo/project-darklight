@@ -20,6 +20,11 @@ func _on_accuse_mallory_pressed() -> void:
 	print("[Decision] Player accused MALLORY.")
 	_show_ending("Mallory Perez")
 
+func _on_btn_back_pressed() -> void:
+	print("[Decision] Player is returning to map.")
+	get_tree().change_scene_to_file("res://scenes/ui/map_screen.tscn")
+
+
 func _show_ending(suspect_name: String) -> void:
 	var ending = GameState.get_ending(suspect_name)
 	var epilogue_text = ""
@@ -38,8 +43,8 @@ func _show_ending(suspect_name: String) -> void:
 	var dialog = AcceptDialog.new()
 	dialog.title = "The Investigation Concludes"
 	dialog.dialog_text = epilogue_text
-	dialog.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	dialog.custom_minimum_size = Vector2(500, 300)
+	dialog.dialog_autowrap = true
+	dialog.min_size = Vector2(500, 300)
 	
 	dialog.confirmed.connect(func(): 
 		# Show Star Award screen
@@ -51,4 +56,3 @@ func _show_ending(suspect_name: String) -> void:
 	
 	add_child(dialog)
 	dialog.popup_centered()
-

@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://decision001"]
 
-[ext_resource type="Script" path="res://scripts/Decision.gd" id="1_decisionscript"]
-[ext_resource type="Texture2D" path="res://art/backgrounds/MENU.jpg" id="2_bg"]
+[ext_resource type="Script" uid="uid://d3jakg7kq0kt4" path="res://scripts/Decision.gd" id="1_decisionscript"]
+[ext_resource type="Texture2D" uid="uid://d1jor4rsxt04a" path="res://art/backgrounds/ChiefOffice.png" id="2_bg"]
 
-[node name="Decision" type="Control"]
+[node name="Decision" type="Control" unique_id=161466492]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -12,7 +12,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_decisionscript")
 
-[node name="Background" type="TextureRect" parent="."]
+[node name="Background" type="TextureRect" parent="." unique_id=474011452]
 modulate = Color(0.2, 0.2, 0.2, 1)
 layout_mode = 1
 anchors_preset = 15
@@ -24,7 +24,7 @@ texture = ExtResource("2_bg")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="UI" type="Control" parent="."]
+[node name="UI" type="Control" parent="." unique_id=185116225]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -32,7 +32,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ChiefLabel" type="Label" parent="UI"]
+[node name="ChiefLabel" type="Label" parent="UI" unique_id=1487942378]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -47,7 +47,7 @@ text = "Chief: \"Clock's ticking. What have you got?\""
 horizontal_alignment = 1
 autowrap_mode = 3
 
-[node name="Suspects" type="HBoxContainer" parent="UI"]
+[node name="Suspects" type="HBoxContainer" parent="UI" unique_id=1567466588]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -63,59 +63,76 @@ grow_vertical = 2
 theme_override_constants/separation = 100
 alignment = 1
 
-[node name="FelixCard" type="PanelContainer" parent="UI/Suspects"]
+[node name="FelixCard" type="PanelContainer" parent="UI/Suspects" unique_id=243154289]
 custom_minimum_size = Vector2(300, 400)
 layout_mode = 2
 
-[node name="VBox" type="VBoxContainer" parent="UI/Suspects/FelixCard"]
+[node name="VBox" type="VBoxContainer" parent="UI/Suspects/FelixCard" unique_id=1799109653]
 layout_mode = 2
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="Name" type="Label" parent="UI/Suspects/FelixCard/VBox"]
+[node name="Name" type="Label" parent="UI/Suspects/FelixCard/VBox" unique_id=1211407470]
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
 text = "FELIX GONZALEZ"
 horizontal_alignment = 1
 
-[node name="Details" type="Label" parent="UI/Suspects/FelixCard/VBox"]
+[node name="Details" type="Label" parent="UI/Suspects/FelixCard/VBox" unique_id=1227479790]
 layout_mode = 2
 text = "Husband • Money motive • Argued with victim"
 horizontal_alignment = 1
 autowrap_mode = 3
 
-[node name="AccuseFelix" type="Button" parent="UI/Suspects/FelixCard/VBox"]
+[node name="AccuseFelix" type="Button" parent="UI/Suspects/FelixCard/VBox" unique_id=687650912]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "ACCUSE FELIX"
 
-[node name="MalloryCard" type="PanelContainer" parent="UI/Suspects"]
+[node name="MalloryCard" type="PanelContainer" parent="UI/Suspects" unique_id=722474510]
 custom_minimum_size = Vector2(300, 400)
 layout_mode = 2
 
-[node name="VBox" type="VBoxContainer" parent="UI/Suspects/MalloryCard"]
+[node name="VBox" type="VBoxContainer" parent="UI/Suspects/MalloryCard" unique_id=1174597070]
 layout_mode = 2
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="Name" type="Label" parent="UI/Suspects/MalloryCard/VBox"]
+[node name="Name" type="Label" parent="UI/Suspects/MalloryCard/VBox" unique_id=1347015904]
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
 text = "MALLORY PEREZ"
 horizontal_alignment = 1
 
-[node name="Details" type="Label" parent="UI/Suspects/MalloryCard/VBox"]
+[node name="Details" type="Label" parent="UI/Suspects/MalloryCard/VBox" unique_id=1955309722]
 layout_mode = 2
 text = "Sister • Jealousy • Called that night"
 horizontal_alignment = 1
 autowrap_mode = 3
 
-[node name="AccuseMallory" type="Button" parent="UI/Suspects/MalloryCard/VBox"]
+[node name="AccuseMallory" type="Button" parent="UI/Suspects/MalloryCard/VBox" unique_id=1024862260]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "ACCUSE MALLORY"
 
+[node name="BtnBack" type="Button" parent="UI" unique_id=450779681]
+custom_minimum_size = Vector2(250, 60)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -125.0
+offset_top = -100.0
+offset_right = 125.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "I need more time to think..."
+
 [connection signal="pressed" from="UI/Suspects/FelixCard/VBox/AccuseFelix" to="." method="_on_accuse_felix_pressed"]
 [connection signal="pressed" from="UI/Suspects/MalloryCard/VBox/AccuseMallory" to="." method="_on_accuse_mallory_pressed"]
+[connection signal="pressed" from="UI/BtnBack" to="." method="_on_btn_back_pressed"]
