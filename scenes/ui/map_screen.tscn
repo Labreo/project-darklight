@@ -73,7 +73,7 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Police Station"
 
-[node name="DecisionButton" type="Button" parent="." unique_id=987654321]
+[node name="ChiefButton" type="Button" parent="." unique_id=987654321]
 custom_minimum_size = Vector2(220, 70)
 layout_mode = 1
 anchors_preset = -1

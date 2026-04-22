@@ -32,11 +32,12 @@ func _ready() -> void:
 	if police_btn:
 		police_btn.pressed.connect(_on_police_station_pressed)
 
-	var decision_btn := get_node_or_null("DecisionButton")
-	if decision_btn:
-		decision_btn.pressed.connect(_on_decision_pressed)
-		# Only show if unlocked
-		decision_btn.visible = "decision" in GameState.unlocked_locations
+	var chief_btn := get_node_or_null("ChiefButton")
+	if chief_btn:
+		chief_btn.pressed.connect(_on_chief_pressed)
+		# Only show if the player has visited Apartment, Film Set, and Police Record
+		chief_btn.visible = GameState.has_visited_initial_locations()
+
 
 # ---------------------------------------------------------------------------
 # Button callbacks
@@ -51,8 +52,9 @@ func _on_film_set_pressed() -> void:
 func _on_police_station_pressed() -> void:
 	_travel_to("res://scenes/locations/PoliceRecord.tscn")
 
-func _on_decision_pressed() -> void:
-	_travel_to("res://scenes/Decision.tscn")
+func _on_chief_pressed() -> void:
+	_travel_to("res://scenes/locations/ChiefOffice.tscn")
+
 
 # ---------------------------------------------------------------------------
 # Core travel helper

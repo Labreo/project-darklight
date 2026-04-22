@@ -163,6 +163,15 @@ func has_all_key_clues() -> bool:
 func remaining_key_clues() -> int:
 	return KEY_CLUE_IDS.size() - _found_key_clue_ids().size()
 
+## Returns true if the player has visited all three primary investigation locations.
+func has_visited_initial_locations() -> bool:
+	var required = ["Apartment", "Film_Set", "PoliceRecord"]
+	for scene_id in required:
+		if scene_id not in visited_scenes:
+			return false
+	return true
+
+
 # ---------------------------------------------------------------------------
 # Ending Logic
 # ---------------------------------------------------------------------------
