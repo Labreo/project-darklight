@@ -37,6 +37,14 @@ func _check_torn_note() -> void:
 			# Trigger the standard clue card popup to alert the player
 			var clue_card = get_node_or_null("UI/ClueCard")
 			if clue_card:
+				# Wait 1 frame so Hotspot.gd finishes showing the C12b clue card
+				await get_tree().process_frame
+				
+				# Wait until the player dismisses the current popup (e.g. C12b)
+				if clue_card.visible:
+					await clue_card.closed
+					
+					
 				clue_card.show_clue(
 					"TORN_NOTE",
 					"Assembled Note",
