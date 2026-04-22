@@ -33,7 +33,7 @@ const KEY_CLUE_IDS : Array[String] = ["C4", "C11", "C12", "C14", "C15"]
 # Location & scene tracking
 # ---------------------------------------------------------------------------
 ## All location ids that the player has unlocked so far.
-var unlocked_locations: Array[String] = ["apartment"]
+var unlocked_locations: Array[String] = ["apartment", "film_set", "police_station"]
 
 ## All scene ids the player has visited (for the Revisit panel).
 var visited_scenes: Array[String] = []

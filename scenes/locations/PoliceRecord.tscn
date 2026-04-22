@@ -1,0 +1,94 @@
+[gd_scene format=3 uid="uid://policerecord001"]
+
+[ext_resource type="Script" path="res://scripts/police_record.gd" id="1_policescript"]
+[ext_resource type="Script" uid="uid://1h1tdt3h8sh3" path="res://scripts/Hotspot.gd" id="2_hotspot"]
+[ext_resource type="Texture2D" path="res://art/backgrounds/PoliceRecords.png" id="3_bg"]
+[ext_resource type="PackedScene" path="res://scenes/ui/ClueCard.tscn" id="10_cluecard"]
+
+[node name="PoliceRecord" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_policescript")
+
+[node name="PlayArea" type="AspectRatioContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+ratio = 1.77778
+alignment_horizontal = 1
+alignment_vertical = 1
+mouse_filter = 2
+
+[node name="Background" type="TextureRect" parent="PlayArea"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3_bg")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Hotspots" type="Control" parent="PlayArea"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="C13_Hotspot" type="Control" parent="PlayArea/Hotspots"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.2
+anchor_top = 0.3
+anchor_right = 0.3
+anchor_bottom = 0.4
+script = ExtResource("2_hotspot")
+clue_id = "C13"
+clue_title = "Felix's Call Records"
+clue_description = "No calls to Felicia after 7 PM. Consistent with his story. Alibi confirmed."
+scene_name = "Police Station"
+
+[node name="C14_Hotspot" type="Control" parent="PlayArea/Hotspots"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.45
+anchor_top = 0.25
+anchor_right = 0.55
+anchor_bottom = 0.35
+script = ExtResource("2_hotspot")
+clue_id = "C14"
+clue_title = "Mallory's Call Records"
+clue_description = "Mallory called Felicia at 10:28 PM — two minutes before Felicia froze in the parking lot."
+scene_name = "Police Station"
+is_key_clue = true
+
+[node name="C15_Hotspot" type="Control" parent="PlayArea/Hotspots"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.7
+anchor_top = 0.4
+anchor_right = 0.8
+anchor_bottom = 0.5
+script = ExtResource("2_hotspot")
+clue_id = "C15"
+clue_title = "Property Records — 14 Crestview Lane"
+clue_description = "Registered to Olivia Perez — the family's childhood home. This house is where it all started."
+scene_name = "Police Station"
+is_key_clue = true
+
+[node name="UI" type="CanvasLayer" parent="."]
+layer = 5
+
+[node name="ClueCard" parent="UI" instance=ExtResource("10_cluecard")]

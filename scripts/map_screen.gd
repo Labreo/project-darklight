@@ -32,6 +32,12 @@ func _ready() -> void:
 	if police_btn:
 		police_btn.pressed.connect(_on_police_station_pressed)
 
+	var decision_btn := get_node_or_null("DecisionButton")
+	if decision_btn:
+		decision_btn.pressed.connect(_on_decision_pressed)
+		# Only show if unlocked
+		decision_btn.visible = "decision" in GameState.unlocked_locations
+
 # ---------------------------------------------------------------------------
 # Button callbacks
 # ---------------------------------------------------------------------------
@@ -43,8 +49,10 @@ func _on_film_set_pressed() -> void:
 	_travel_to("res://scenes/locations/Film_Set.tscn")
 
 func _on_police_station_pressed() -> void:
-	# Placeholder: Police Station not built yet.
-	print("[MapScreen] Police Station not yet implemented.")
+	_travel_to("res://scenes/locations/PoliceRecord.tscn")
+
+func _on_decision_pressed() -> void:
+	_travel_to("res://scenes/Decision.tscn")
 
 # ---------------------------------------------------------------------------
 # Core travel helper

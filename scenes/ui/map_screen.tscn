@@ -72,3 +72,20 @@ offset_bottom = 35.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Police Station"
+
+[node name="DecisionButton" type="Button" parent="." unique_id=987654321]
+custom_minimum_size = Vector2(220, 70)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.8
+anchor_top = 0.85
+anchor_right = 0.8
+anchor_bottom = 0.85
+offset_left = -110.0
+offset_top = -35.0
+offset_right = 110.0
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.8, 0, 1)
+text = "CHIEF'S OFFICE"
