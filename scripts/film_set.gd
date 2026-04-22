@@ -34,5 +34,13 @@ func _check_torn_note() -> void:
 				"The two pieces fit perfectly together:\n'Meet me tonight. please. just talk.\nI know what you did, and I won't cover for you anymore.' — signed P.\n\nThis is a massive breakthrough.",
 				"Film Set"
 			)
-			# Here we could theoretically trigger a popup minigame instead,
-			# but a static reveal keeps us on schedule!
+			# Trigger the standard clue card popup to alert the player
+			var clue_card = get_node_or_null("UI/ClueCard")
+			if clue_card:
+				clue_card.show_clue(
+					"TORN_NOTE",
+					"Assembled Note",
+					"The two pieces fit perfectly together:\n\n'Meet me tonight. please. just talk.\nI know what you did, and I won't cover for you anymore.' — signed P.\n\nThis is a massive breakthrough.",
+					false,
+					true
+				)

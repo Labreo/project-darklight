@@ -1,5 +1,7 @@
 extends CanvasLayer
 
+signal closed
+
 # ===========================================================================
 # ClueCard.gd
 # ---------------------------------------------------------------------------
@@ -135,4 +137,7 @@ func _on_close_pressed() -> void:
 func _dismiss() -> void:
 	var tween := create_tween()
 	tween.tween_property(panel, "modulate:a", 0.0, 0.16)
-	tween.tween_callback(func(): visible = false)
+	tween.tween_callback(func():
+		visible = false
+		closed.emit()
+	)
