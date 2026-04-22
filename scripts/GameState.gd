@@ -38,9 +38,19 @@ var unlocked_locations: Array[String] = ["apartment", "film_set", "police_statio
 ## All scene ids the player has visited (for the Revisit panel).
 var visited_scenes: Array[String] = []
 
+## Total clues available in each scene (used for Revisit filtering).
+const LOCATION_TOTALS = {
+	"Apartment": 6,
+	"Film_Set": 7,
+	"PoliceRecord": 3
+}
+
 # Current mode enum (mirrors BottomBar button order)
 enum Mode { NONE, INVESTIGATE, TALK, MAP, CLUE_LOG, REVISIT }
 var current_mode: Mode = Mode.NONE
+
+# Ending enum
+enum Ending { NONE, TRUE, BAD, INCOMPLETE }
 
 # ---------------------------------------------------------------------------
 # Scene handoff
@@ -110,6 +120,25 @@ func get_clue_by_id(id: String) -> Dictionary:
 func has_clue(id: String) -> bool:
 	return get_clue_by_id(id).is_empty() == false
 
+func get_clues_found_count(scene_id: String) -> int:
+	var count = 0
+	# Normalize scene_id for comparison if needed, but here we expect exact match or case-insensitive
+	for clue in clues:
+		var normalized_scene_id = scene_id.to_lower().replace("_", " ")
+		var normalized_clue_scene = clue["scene"].to_lower().replace("_", " ")
+		
+		if normalized_scene_id in normalized_clue_scene or normalized_clue_scene in normalized_scene_id:
+			count += 1
+
+	return count
+
+func get_clues_remaining(scene_id: String) -> int:
+	if not LOCATION_TOTALS.has(scene_id):
+		return 0
+	var found = get_clues_found_count(scene_id)
+	return max(0, LOCATION_TOTALS[scene_id] - found)
+
+
 # ---------------------------------------------------------------------------
 # Key-clue helpers
 # ---------------------------------------------------------------------------
@@ -133,3 +162,28 @@ func has_all_key_clues() -> bool:
 ## Returns how many key clues remain uncollected (handy for a HUD counter).
 func remaining_key_clues() -> int:
 	return KEY_CLUE_IDS.size() - _found_key_clue_ids().size()
+
+# ---------------------------------------------------------------------------
+# Ending Logic
+# ---------------------------------------------------------------------------
+
+func get_ending(accused_name: String) -> Ending:
+	if accused_name == "Felix Gonzalez":
+		return Ending.BAD
+	
+	if accused_name == "Mallory Perez":
+		# Check if critical chain is complete
+		# Required: C4 (Address), C11 (Note piece), C14 (Calls), C15 (Property)
+		var required = ["C4", "C11", "C14", "C15"]
+		var complete = true
+		for cid in required:
+			if not has_clue(cid):
+				complete = false
+				break
+		
+		if complete:
+			return Ending.TRUE
+		else:
+			return Ending.INCOMPLETE
+			
+	return Ending.NONE

@@ -49,7 +49,7 @@ script = ExtResource("2_hotspot")
 clue_id = "C13"
 clue_title = "Felix's Call Records"
 clue_description = "No calls to Felicia after 7 PM. Consistent with his story. Alibi confirmed."
-scene_name = "Police Station"
+scene_name = "Police Record"
 
 [node name="C14_Hotspot" type="Control" parent="PlayArea/Hotspots" unique_id=907036106]
 layout_mode = 1
@@ -65,7 +65,7 @@ script = ExtResource("2_hotspot")
 clue_id = "C14"
 clue_title = "Mallory's Call Records"
 clue_description = "Mallory called Felicia at 10:28 PM — two minutes before Felicia froze in the parking lot."
-scene_name = "Police Station"
+scene_name = "Police Record"
 is_key_clue = true
 
 [node name="C15_Hotspot" type="Control" parent="PlayArea/Hotspots" unique_id=111112739]
@@ -82,7 +82,7 @@ script = ExtResource("2_hotspot")
 clue_id = "C15"
 clue_title = "Property Records — 14 Crestview Lane"
 clue_description = "Registered to Olivia Perez — the family's childhood home. This house is where it all started."
-scene_name = "Police Station"
+scene_name = "Police Record"
 is_key_clue = true
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=1459894215]

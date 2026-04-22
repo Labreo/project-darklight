@@ -235,13 +235,28 @@ func _refresh_revisit_list() -> void:
 		revisit_list.add_child(lbl)
 	else:
 		for scene_id in GameState.visited_scenes:
-			var btn := Button.new()
-			btn.text = scene_id.replace("_", " ").capitalize()
-			btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-			# Map scene_id back to the full path.
-			var path := "res://scenes/locations/%s.tscn" % scene_id
-			btn.pressed.connect(func(): travel_to(path))
-			revisit_list.add_child(btn)
+			var remaining = GameState.get_clues_remaining(scene_id)
+			
+			# Only show if there are clues left to find
+			if remaining > 0:
+				var btn := Button.new()
+				var display_name = scene_id.replace("_", " ").capitalize()
+				btn.text = "%s (%d clues left)" % [display_name, remaining]
+				btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+				
+				# Map scene_id back to the full path.
+				var path := "res://scenes/locations/%s.tscn" % scene_id
+				btn.pressed.connect(func(): travel_to(path))
+				revisit_list.add_child(btn)
+		
+		# If we visited scenes but ALL are completed
+		if revisit_list.get_child_count() == 0:
+			var lbl := Label.new()
+			lbl.text = "All visited locations fully searched."
+			lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+			lbl.add_theme_color_override("font_color", Color(0.4, 0.9, 0.4))
+			revisit_list.add_child(lbl)
+
 
 func _on_scene_visited(_scene_id: String) -> void:
 	_refresh_revisit_list()
