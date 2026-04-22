@@ -50,7 +50,7 @@ func _ready() -> void:
 	# Wire bottom-bar buttons.
 	btn_investigate.pressed.connect(func(): _toggle_panel(panel_investigate))
 	btn_talk.pressed.connect(func():        _toggle_panel(panel_talk))
-	btn_map.pressed.connect(func():         _toggle_panel(panel_map))
+	btn_map.pressed.connect(func():         get_tree().change_scene_to_file("res://scenes/ui/map_screen.tscn"))
 	btn_clue_log.pressed.connect(func():    _toggle_panel(panel_clue_log))
 	btn_revisit.pressed.connect(func():     _toggle_panel(panel_revisit))
 
