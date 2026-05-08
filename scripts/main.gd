@@ -206,7 +206,7 @@ func _make_clue_card(clue: Dictionary) -> PanelContainer:
 	var scene_lbl := Label.new()
 	scene_lbl.text = clue.get("scene", "Unknown location")
 	scene_lbl.add_theme_color_override("font_color", Color(0.7, 0.7, 0.7))
-	scene_lbl.add_theme_font_size_override("font_size", 11)
+	scene_lbl.add_theme_font_size_override("font_size", 16)
 	vbox.add_child(scene_lbl)
 
 	# ── Description ────────────────────────────────────────────────────────

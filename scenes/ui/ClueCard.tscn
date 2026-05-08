@@ -58,21 +58,21 @@ theme_override_constants/separation = 12
 [node name="LblClueId" type="Label" parent="Panel/VBoxContainer"]
 layout_mode = 2
 text = "CLUE  C0"
-theme_override_font_sizes/font_size = 11
+theme_override_font_sizes/font_size = 16
 theme_override_colors/font_color = Color(0.8, 0.7, 0.2, 1)
 
 
 [node name="LblStatus" type="Label" parent="Panel/VBoxContainer"]
 layout_mode = 2
 text = "★ NEW FIND LOGGED"
-theme_override_font_sizes/font_size = 13
+theme_override_font_sizes/font_size = 18
 theme_override_colors/font_color = Color(0.4, 0.9, 0.4, 1)
 
 
 [node name="LblTitle" type="Label" parent="Panel/VBoxContainer"]
 layout_mode = 2
 text = "Clue Title"
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 25
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 
 [node name="HSeparator" type="HSeparator" parent="Panel/VBoxContainer"]
@@ -87,11 +87,11 @@ visible = false
 layout_mode = 2
 text = "Clue description. Replace at runtime."
 autowrap_mode = 3
-theme_override_font_sizes/font_size = 14
+theme_override_font_sizes/font_size = 19
 theme_override_colors/font_color = Color(0.85, 0.85, 0.85, 1)
 
 [node name="BtnClose" type="Button" parent="Panel/VBoxContainer"]
 layout_mode = 2
 text = "Got it  ✓"
 alignment = 1
-theme_override_font_sizes/font_size = 14
+theme_override_font_sizes/font_size = 19

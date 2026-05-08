@@ -42,7 +42,7 @@ offset_top = 100.0
 offset_right = 300.0
 offset_bottom = 200.0
 grow_horizontal = 2
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 29
 text = "Chief: \"Clock's ticking. What have you got?\""
 horizontal_alignment = 1
 autowrap_mode = 3
@@ -74,7 +74,7 @@ alignment = 1
 
 [node name="Name" type="Label" parent="UI/Suspects/FelixCard/VBox" unique_id=1211407470]
 layout_mode = 2
-theme_override_font_sizes/font_size = 28
+theme_override_font_sizes/font_size = 33
 text = "FELIX GONZALEZ"
 horizontal_alignment = 1
 
@@ -101,7 +101,7 @@ alignment = 1
 
 [node name="Name" type="Label" parent="UI/Suspects/MalloryCard/VBox" unique_id=1347015904]
 layout_mode = 2
-theme_override_font_sizes/font_size = 28
+theme_override_font_sizes/font_size = 33
 text = "MALLORY PEREZ"
 horizontal_alignment = 1
 

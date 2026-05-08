@@ -26,19 +26,19 @@ alignment = 1
 
 [node name="LblEndingName" type="Label" parent="Panel/VBox"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 37
 text = "ENDING NAME"
 horizontal_alignment = 1
 
 [node name="LblStars" type="Label" parent="Panel/VBox"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 72
+theme_override_font_sizes/font_size = 77
 text = "★"
 horizontal_alignment = 1
 
 [node name="LblRank" type="Label" parent="Panel/VBox"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 23
 text = "Detective Rank Message"
 horizontal_alignment = 1
 autowrap_mode = 3
