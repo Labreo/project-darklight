@@ -10,9 +10,5 @@ extends Control
 # ===========================================================================
 
 func _ready() -> void:
-	AudioManager.play_ambience("apartment")
 	# Main.gd handles adding this to the visited scenes list.
 	print("[Apartment] Scene ready.")
-
-func _exit_tree() -> void:
-	AudioManager.stop_ambience()

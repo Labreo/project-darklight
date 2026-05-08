@@ -10,7 +10,6 @@ extends Control
 @onready var hotspot_c15 = $PlayArea/Hotspots/C15_Hotspot
 
 func _ready() -> void:
-	AudioManager.play_ambience("police_station")
 	# Main.gd handles adding this to visited scenes.
 	
 	# Initial check for C15 gating
@@ -20,9 +19,6 @@ func _ready() -> void:
 	GameState.clue_added.connect(_on_clue_added)
 	
 	print("[Police Records] Scene ready.")
-
-func _exit_tree() -> void:
-	AudioManager.stop_ambience()
 
 func _on_clue_added(_clue: Dictionary) -> void:
 	_update_gating()

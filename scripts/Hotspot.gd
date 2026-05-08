@@ -60,7 +60,6 @@ func _gui_input(event: InputEvent) -> void:
 # Activation
 # ---------------------------------------------------------------------------
 func _activate() -> void:
-	AudioManager.play_sfx("ui_click")
 	if clue_id.is_empty():
 		push_error("[Hotspot] clue_id is empty — set it in the Inspector.")
 		return
