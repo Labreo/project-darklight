@@ -9,18 +9,23 @@ extends Control
 @onready var chief_label = $UI/ChiefLabel
 
 func _ready() -> void:
+	AudioManager.play_bgm("decision")
 	chief_label.text = "\"Clock's ticking. The press is outside. What have you got?\""
 	print("[Decision] Final scene active.")
 
 func _on_accuse_felix_pressed() -> void:
+	AudioManager.play_sfx("ui_click")
 	print("[Decision] Player accused FELIX.")
 	_show_ending("Felix Gonzalez")
 
 func _on_accuse_mallory_pressed() -> void:
+	AudioManager.play_sfx("ui_click")
 	print("[Decision] Player accused MALLORY.")
 	_show_ending("Mallory Perez")
 
 func _on_btn_back_pressed() -> void:
+	AudioManager.play_sfx("ui_click")
+	AudioManager.play_bgm("case_start")
 	print("[Decision] Player is returning to map.")
 	get_tree().change_scene_to_file("res://scenes/ui/map_screen.tscn")
 

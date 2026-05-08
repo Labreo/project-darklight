@@ -132,6 +132,7 @@ func show_clue(id: String, title: String, description: String, is_phone: bool = 
 # Close / dismiss
 # ---------------------------------------------------------------------------
 func _on_close_pressed() -> void:
+	AudioManager.play_sfx("ui_click")
 	_dismiss()
 
 func _dismiss() -> void:

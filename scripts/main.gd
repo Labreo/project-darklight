@@ -48,11 +48,26 @@ func _ready() -> void:
 	GameState.scene_visited.connect(_on_scene_visited)
 
 	# Wire bottom-bar buttons.
-	btn_investigate.pressed.connect(func(): _toggle_panel(panel_investigate))
-	btn_talk.pressed.connect(func():        _toggle_panel(panel_talk))
-	btn_map.pressed.connect(func():         get_tree().change_scene_to_file("res://scenes/ui/map_screen.tscn"))
-	btn_clue_log.pressed.connect(func():    _toggle_panel(panel_clue_log))
-	btn_revisit.pressed.connect(func():     _toggle_panel(panel_revisit))
+	btn_investigate.pressed.connect(func():
+		AudioManager.play_sfx("ui_click")
+		_toggle_panel(panel_investigate)
+	)
+	btn_talk.pressed.connect(func():
+		AudioManager.play_sfx("ui_click")
+		_toggle_panel(panel_talk)
+	)
+	btn_map.pressed.connect(func():
+		AudioManager.play_sfx("ui_click")
+		get_tree().change_scene_to_file("res://scenes/ui/map_screen.tscn")
+	)
+	btn_clue_log.pressed.connect(func():
+		AudioManager.play_sfx("ui_click")
+		_toggle_panel(panel_clue_log)
+	)
+	btn_revisit.pressed.connect(func():
+		AudioManager.play_sfx("ui_click")
+		_toggle_panel(panel_revisit)
+	)
 
 	# Hide all panels at startup.
 	_hide_all_panels()
@@ -106,6 +121,9 @@ func travel_to(scene_path: String) -> void:
 	_hide_all_panels()
 	_active_panel = null
 	_update_button_states(null)
+	
+	# Resume gameplay bgm if we changed scenes
+	AudioManager.play_bgm("case_start")
 
 	print("[Main] Travelled to: ", scene_path)
 
@@ -117,11 +135,15 @@ func _toggle_panel(panel: Control) -> void:
 		_hide_panel(panel)
 		_active_panel = null
 		_update_button_states(null)
+		if panel == panel_talk:
+			AudioManager.play_bgm("case_start")
 	else:
 		_hide_all_panels()
 		_show_panel(panel)
 		_active_panel = panel
 		_update_button_states(panel)
+		if panel == panel_talk:
+			AudioManager.play_bgm("interrogation")
 
 func _show_panel(panel: Control) -> void:
 	panel.visible = true
@@ -218,6 +240,7 @@ func _make_clue_card(clue: Dictionary) -> PanelContainer:
 	return card
 
 func _on_clue_added(_clue: Dictionary) -> void:
+	AudioManager.play_sfx("clue_found")
 	_refresh_clue_log()
 
 # ===========================================================================
@@ -246,7 +269,10 @@ func _refresh_revisit_list() -> void:
 				
 				# Map scene_id back to the full path.
 				var path := "res://scenes/locations/%s.tscn" % scene_id
-				btn.pressed.connect(func(): travel_to(path))
+				btn.pressed.connect(func():
+					AudioManager.play_sfx("ui_click")
+					travel_to(path)
+				)
 				revisit_list.add_child(btn)
 		
 		# If we visited scenes but ALL are completed

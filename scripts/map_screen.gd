@@ -18,6 +18,7 @@ extends Control
 # ===========================================================================
 
 func _ready() -> void:
+	AudioManager.play_bgm("case_start")
 	# Wire every location button.
 	# get_node_or_null is used so missing buttons silently skip rather than crash.
 	var apartment_btn := get_node_or_null("ApartmentButton")
@@ -64,6 +65,7 @@ func _on_chief_pressed() -> void:
 ## Loads Main.tscn (the persistent BottomBar shell) and passes the target
 ## scene path so Main can display it in its GameView slot.
 func _travel_to(scene_path: String) -> void:
+	AudioManager.play_sfx("ui_click")
 	# Cache the destination so Main.gd can read it on _ready.
 	GameState.pending_scene_path = scene_path
 
