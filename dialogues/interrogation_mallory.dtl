@@ -1,0 +1,24 @@
+join Mallory right
+join Detective left
+
+Mallory: I'm so worried about Felicia. I think that director was pressuring her. And Felix... I've never trusted him. He argues with her about money constantly. I've always thought he was bad for her.
+
+label Questions
+- Why did you call Felicia that night?
+	Detective: Why did you call Felicia that night?
+	Mallory: I-I call her sometimes. I wanted to hear her voice. Without everything else around her. Without people who needed something from her. Just her voice.
+	jump Questions
+- Were you jealous of her success?
+	Detective: Were you jealous of her success?
+	Mallory: Jealous? No. Not of the fame. Just of how easily she was loved for something I was never even allowed to try.
+	jump Questions
+- Did you meet her after the call?
+	Detective: Did you meet her after the call?
+	Mallory: She didn't want to go home. Not to that apartment where her letters to me would be lying around without a reply. (pause) If I had taken her somewhere... do you think I'd be sitting here?
+	jump Questions
+- Do you know where she is now?
+	Detective: Do you know where she is now?
+	Mallory (quietly): Maybe she wanted to run away. I don't know. (very quietly) But I miss her.
+	jump Questions
+- [Leave Interrogation]
+	[end_timeline]

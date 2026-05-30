@@ -1,0 +1,28 @@
+join Felix right
+join Detective left
+
+Felix: I already told the other officer everything.
+
+label Questions
+- Where were you last night?
+	Detective: Where were you last night?
+	Felix: At the Meridian party. From 10:45 onwards. You can check the guest list, the bar tab, the security footage. I was there until 2 AM.
+	jump Questions
+- Did you have plans to see Felicia that night?
+	Detective: Did you have plans to see Felicia that night?
+	Felix: Yes. She was supposed to come to the party with me. She said she'd follow after the shoot. She never showed. I called twice and gave up.
+	jump Questions
+- When did you last see her?
+	Detective: When did you last see her?
+	Felix: Before I left for the party. She was getting ready for the shoot, said she'd meet me there. She also said she was worried about her sister - that Mallory had been calling again.
+	jump Questions
+- You were arguing about money. How bad did it get?
+	Detective: You were arguing about money. How bad did it get?
+	Felix: Every couple argues! Things were tight... she wanted to quit acting. Okay. But I did NOT want her money. I didn't do anything to her. She's my wife.
+	jump Questions
+- Why report her missing only in the morning?
+	Detective: Why report her missing only in the morning?
+	Felix: Because I thought she stayed out! It's not a crime to assume that. We'd fought. She does... she used to stay out when we fought. I didn't know. I didn't know.
+	jump Questions
+- [Leave Interrogation]
+	[end_timeline]

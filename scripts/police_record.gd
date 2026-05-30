@@ -9,6 +9,8 @@ extends Control
 
 @onready var hotspot_c15 = $PlayArea/Hotspots/C15_Hotspot
 
+var interrogation_vbox: VBoxContainer
+
 func _ready() -> void:
 	# Main.gd handles adding this to visited scenes.
 	
@@ -19,6 +21,36 @@ func _ready() -> void:
 	GameState.clue_added.connect(_on_clue_added)
 	
 	print("[Police Records] Scene ready.")
+	
+	# Add Interrogation Buttons Dynamically
+	interrogation_vbox = VBoxContainer.new()
+	$UI.add_child(interrogation_vbox) # Add to UI first before anchoring
+	interrogation_vbox.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
+	interrogation_vbox.position.y -= 100 # Shift up slightly from dead center
+	
+	var btn_felix = Button.new()
+	btn_felix.text = "Interrogate Felix"
+	btn_felix.add_theme_font_size_override("font_size", 24)
+	btn_felix.pressed.connect(func(): _start_interrogation("interrogation_felix"))
+	
+	var btn_mallory = Button.new()
+	btn_mallory.text = "Interrogate Mallory"
+	btn_mallory.add_theme_font_size_override("font_size", 24)
+	btn_mallory.pressed.connect(func(): _start_interrogation("interrogation_mallory"))
+	
+	interrogation_vbox.add_child(btn_felix)
+	interrogation_vbox.add_child(btn_mallory)
+	
+	# Listen for when dialogue ends to show the buttons again
+	Dialogic.timeline_ended.connect(_on_timeline_ended)
+
+func _start_interrogation(timeline_name: String) -> void:
+	interrogation_vbox.hide()
+	Dialogic.start(timeline_name)
+
+func _on_timeline_ended() -> void:
+	if is_instance_valid(interrogation_vbox):
+		interrogation_vbox.show()
 
 func _on_clue_added(_clue: Dictionary) -> void:
 	_update_gating()
