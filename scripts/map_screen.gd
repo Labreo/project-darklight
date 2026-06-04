@@ -36,12 +36,20 @@ func _ready() -> void:
 	if chief_btn:
 		chief_btn.pressed.connect(_on_chief_pressed)
 		# Only show if the player has visited Apartment, Film Set, and Police Record
-		chief_btn.visible = GameState.has_visited_initial_locations()
+		# chief_btn.visible = GameState.has_visited_initial_locations()
+
+
+	var back_btn := get_node_or_null("BackButton")
+	if back_btn:
+		back_btn.pressed.connect(_on_back_pressed)
 
 
 # ---------------------------------------------------------------------------
 # Button callbacks
 # ---------------------------------------------------------------------------
+
+func _on_back_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/ui/title_screen.tscn")
 
 func _on_apartment_pressed() -> void:
 	_travel_to("res://scenes/locations/Apartment.tscn")

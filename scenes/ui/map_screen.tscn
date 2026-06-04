@@ -2,8 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/map_screen.gd" id="1_mapscript"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vc5ef"]
-load_path = "res://.godot/imported/placeholder-map.jpg-86dd539f787afabd8940b220ebe1aea6.ctex"
+[ext_resource type="Texture2D" uid="uid://brkewt0rbsfj7" path="res://art/backgrounds/map2 (1).png" id="2_maptex"]
 
 [node name="map_screen" type="Control" unique_id=574984620]
 layout_mode = 3
@@ -21,7 +20,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("CompressedTexture2D_vc5ef")
+texture = ExtResource("2_maptex")
 expand_mode = 1
 stretch_mode = 6
 
@@ -29,63 +28,82 @@ stretch_mode = 6
 custom_minimum_size = Vector2(220, 70)
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.25
-anchor_top = 0.25
-anchor_right = 0.25
-anchor_bottom = 0.25
+anchor_left = 0.20
+anchor_top = 0.54
+anchor_right = 0.20
+anchor_bottom = 0.54
 offset_left = -110.0
 offset_top = -35.0
 offset_right = 110.0
 offset_bottom = 35.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Apartment"
+flat = true
 
 [node name="FilmSetButton" type="Button" parent="." unique_id=47482688]
 custom_minimum_size = Vector2(220, 70)
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.75
-anchor_top = 0.45
-anchor_right = 0.75
-anchor_bottom = 0.45
+anchor_left = 0.51
+anchor_top = 0.73
+anchor_right = 0.51
+anchor_bottom = 0.73
 offset_left = -110.0
 offset_top = -35.0
 offset_right = 110.0
 offset_bottom = 35.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Film Set"
+flat = true
 
 [node name="PoliceStationButton" type="Button" parent="." unique_id=644653765]
 custom_minimum_size = Vector2(220, 70)
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.40
-anchor_top = 0.75
-anchor_right = 0.40
-anchor_bottom = 0.75
+anchor_left = 0.50
+anchor_top = 0.36
+anchor_right = 0.50
+anchor_bottom = 0.36
 offset_left = -110.0
 offset_top = -35.0
 offset_right = 110.0
 offset_bottom = 35.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Police Station"
+flat = true
 
 [node name="ChiefButton" type="Button" parent="." unique_id=987654321]
 custom_minimum_size = Vector2(220, 70)
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.8
-anchor_top = 0.85
-anchor_right = 0.8
-anchor_bottom = 0.85
+anchor_left = 0.74
+anchor_top = 0.84
+anchor_right = 0.74
+anchor_bottom = 0.84
 offset_left = -110.0
 offset_top = -35.0
 offset_right = 110.0
 offset_bottom = 35.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_color = Color(1, 0.8, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 18
+flat = true
 text = "CHIEF'S OFFICE"
+
+[node name="BackButton" type="Button" parent="." unique_id=1122334455]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.05
+anchor_top = 0.90
+anchor_right = 0.05
+anchor_bottom = 0.90
+offset_right = 150.0
+offset_bottom = 50.0
+text = "BACK"
