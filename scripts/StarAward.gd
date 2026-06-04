@@ -30,6 +30,7 @@ func setup(ending: GameState.Ending) -> void:
 			lbl_stars.add_theme_color_override("font_color", Color.GRAY)
 
 func _on_btn_menu_pressed() -> void:
+	AudioManager.play_sfx("play_click")
 	# For now, just quit or reload the map. 
 	# If there was a main menu, we'd go there.
 	get_tree().quit()

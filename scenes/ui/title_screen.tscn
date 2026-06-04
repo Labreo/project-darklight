@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://b6ldmvy5y4soc" path="res://scripts/title_screen.gd" id="1_aqpy5"]
 [ext_resource type="Texture2D" uid="uid://dtb5yhuh4jpug" path="res://art/backgrounds/MENU.jpg" id="1_eb34j"]
 [ext_resource type="PackedScene" uid="uid://bcss0h2mypfhl" path="res://scenes/ui/button_container.tscn" id="2_button_container"]
+[ext_resource type="AudioStream" uid="uid://b2lj1igpt1s6i" path="res://audio/bgm/theme_audio.wav" id="3_theme_audio"]
 
 [node name="TitleScreen" type="Control" unique_id=267057910]
 layout_mode = 3

@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://scripts/ChiefOffice.gd" id="1_chiefscript"]
 [ext_resource type="Script" uid="uid://1h1tdt3h8sh3" path="res://scripts/Hotspot.gd" id="2_hotspot"]
 [ext_resource type="Texture2D" path="res://art/backgrounds/ChiefOffice.png" id="3_bg"]
+[ext_resource type="AudioStream" uid="uid://coj812a5c1uua" path="res://audio/bgm/decision.mp3" id="4_bgm"]
 
 [node name="ChiefOffice" type="Control"]
 layout_mode = 3

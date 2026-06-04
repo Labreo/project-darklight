@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://cjsj85r75iucs" path="res://scripts/apartment.gd" id="1_aptscript"]
 [ext_resource type="Script" uid="uid://1h1tdt3h8sh3" path="res://scripts/Hotspot.gd" id="2_hotspot"]
 [ext_resource type="Texture2D" uid="uid://bl3rl7lud5lvl" path="res://art/backgrounds/ApartmentFinal.jpg" id="3_bg"]
+[ext_resource type="AudioStream" uid="uid://ien548khed8a" path="res://audio/bgm/case_start.mp3" id="11_bgm"]
 [ext_resource type="PackedScene" path="res://scenes/ui/ClueCard.tscn" id="10_cluecard"]
 
 [node name="Apartment" type="Control" unique_id=440301448]

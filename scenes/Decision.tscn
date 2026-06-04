@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://d3jakg7kq0kt4" path="res://scripts/Decision.gd" id="1_decisionscript"]
 [ext_resource type="Texture2D" uid="uid://d1jor4rsxt04a" path="res://art/backgrounds/ChiefOffice.png" id="2_bg"]
+[ext_resource type="AudioStream" uid="uid://coj812a5c1uua" path="res://audio/bgm/decision.mp3" id="3_bgm"]
 
 [node name="Decision" type="Control" unique_id=161466492]
 layout_mode = 3

@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://buxdrjieka662" path="res://scripts/film_set.gd" id="1_filmscript"]
 [ext_resource type="Script" uid="uid://1h1tdt3h8sh3" path="res://scripts/Hotspot.gd" id="2_hotspot"]
 [ext_resource type="Texture2D" uid="uid://dejrp4645yvlh" path="res://art/backgrounds/FilmSet.png" id="3_bg"]
+[ext_resource type="AudioStream" uid="uid://ien548khed8a" path="res://audio/bgm/case_start.mp3" id="11_bgm"]
 [ext_resource type="PackedScene" path="res://scenes/ui/ClueCard.tscn" id="10_cluecard"]
 
 [node name="FilmSet" type="Control" unique_id=434949754]

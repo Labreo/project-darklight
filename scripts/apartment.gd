@@ -10,5 +10,6 @@ extends Control
 # ===========================================================================
 
 func _ready() -> void:
+	AudioManager.play_bgm("case_start")
 	# Main.gd handles adding this to the visited scenes list.
 	print("[Apartment] Scene ready.")

@@ -8,7 +8,7 @@ extends Control
 # ===========================================================================
 
 func _ready() -> void:
-	# Main.gd handles adding this to the visited scenes list.
+	AudioManager.play_bgm("case_start")
 	
 	# Listen for clues being added
 	GameState.clue_added.connect(_on_clue_added)

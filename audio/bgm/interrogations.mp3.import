@@ -12,7 +12,7 @@ dest_files=["res://.godot/imported/interrogations.mp3-49c3abb0afc7335e55f7dec13f
 
 [params]
 
-loop=false
+loop=true
 loop_offset=0
 bpm=0
 beat_count=0

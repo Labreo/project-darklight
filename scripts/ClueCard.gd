@@ -77,6 +77,7 @@ func _unhandled_input(event: InputEvent) -> void:
 ##   is_phone    – When true, renders the phone-texts layout (C2 only)
 ##   is_new      – True if newly discovered, false if already logged
 func show_clue(id: String, title: String, description: String, is_phone: bool = false, is_new: bool = true) -> void:
+	AudioManager.play_sfx("clue_found")
 	# ── Populate shared fields ───────────────────────────────────────────────
 	lbl_clue_id.text = "CLUE  %s" % id.to_upper()
 	lbl_title.text   = title
@@ -132,6 +133,7 @@ func show_clue(id: String, title: String, description: String, is_phone: bool = 
 # Close / dismiss
 # ---------------------------------------------------------------------------
 func _on_close_pressed() -> void:
+	AudioManager.play_sfx("play_click")
 	_dismiss()
 
 func _dismiss() -> void:

@@ -7,6 +7,7 @@ extends Control
 # ===========================================================================
 
 func _ready() -> void:
+	AudioManager.play_bgm("decision")
 	# Register visit (doesn't have clues so it won't show in Revisit)
 	GameState.visit_scene("ChiefOffice")
 	print("[Chief Office] Scene ready.")

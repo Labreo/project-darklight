@@ -12,6 +12,7 @@ extends Control
 var interrogation_vbox: VBoxContainer
 
 func _ready() -> void:
+	AudioManager.play_bgm("interrogation")
 	# Main.gd handles adding this to visited scenes.
 	
 	# Initial check for C15 gating
@@ -45,6 +46,7 @@ func _ready() -> void:
 	Dialogic.timeline_ended.connect(_on_timeline_ended)
 
 func _start_interrogation(timeline_name: String) -> void:
+	AudioManager.play_sfx("play_click")
 	interrogation_vbox.hide()
 	Dialogic.start(timeline_name)
 

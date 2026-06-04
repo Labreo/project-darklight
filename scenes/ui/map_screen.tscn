@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://scripts/map_screen.gd" id="1_mapscript"]
 
 [ext_resource type="Texture2D" uid="uid://brkewt0rbsfj7" path="res://art/backgrounds/map2 (1).png" id="2_maptex"]
+[ext_resource type="AudioStream" uid="uid://ien548khed8a" path="res://audio/bgm/case_start.mp3" id="3_bgm"]
 
 [node name="map_screen" type="Control" unique_id=574984620]
 layout_mode = 3
