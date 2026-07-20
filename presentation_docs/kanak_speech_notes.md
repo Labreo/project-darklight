@@ -1,4 +1,5 @@
-# Project Darklight: Kanak's Presentation Speech Notes & Demo Script (EXPANDED)
+
+\# Project Darklight: Kanak's Presentation Speech Notes & Demo Script (EXPANDED)
 **Focus Areas:** Game State Architecture, Clue Logic, Software Engineering Principles, Project Management Execution, and Conducting the Live Demo.
 **Estimated speaking time for these sections:** ~4 minutes of the 10-minute presentation.
 
@@ -11,34 +12,31 @@
 ### Key Talking Points:
 
 * **The Autoload Singleton as a Single Source of Truth (SSOT):**
-  "In Godot, changing scenes normally destroys active nodes and clears their memory. To maintain global state consistency across room transitions, we established `GameState.gd` as an **Autoload singleton**. From a Software Engineering perspective, this acts as our **Single Source of Truth (SSOT)**. It initializes once at launch, sits at the root of the engine's viewport tree, and encapsulates all persistent player data, protecting it from room lifecycle changes in the `GameView` container."
+  "In Godot's runtime model, scene transitions automatically destroy existing nodes and release their heap memory to prevent leaks. In a narrative-driven game, this presents a major architectural challenge: how do we prevent state fragmentation when moving between rooms? We solved this by implementing the **Singleton Pattern**, registering `GameState.gd` as an **Autoload singleton**. This means the script is instantiated by the engine at startup, resides at the root level of the scene tree (`/root/GameState`), and remains active for the entire application lifecycle. 
+
+  This singleton acts as our **Single Source of Truth (SSOT)**. Instead of each location scene (like the Apartment or Film Set) maintaining its own local flags or attempting to pass parameters during scene changes, all data—including collected evidence, visited rooms, and suspect alibi flags—is centralized here. By centralizing our state, we eliminated race conditions and out-of-sync room variables, ensuring a robust and reliable foundation for the entire game loop."
 
 * **Data Modeling & Encapsulation of the Clue Inventory:**
-  "Our clue inventory is modeled as an `Array[Dictionary]`. We adhered to the principle of **Encapsulation**—raw data manipulation is restricted to specific API methods within our singleton. Each clue dictionary defines a strict schema:
-  * `id` (e.g., `"C4"`, `"C15"`): Unique key.
-  * `title` & `description`: Presentation-layer display strings.
-  * `scene`: The origin room ID (supporting queries and completion statistics).
-  * `image_path`: Path to a sprite for dynamic UI rendering.
-  * `timestamp`: Captured using `Time.get_ticks_msec() / 1000.0` to guarantee chronologically sortable event streams."
+  "Our clue inventory is modeled as an `Array[Dictionary]`, enforcing a strict data contract. We applied the principle of **Encapsulation** by making the raw inventory list private and exposing it only through specific interface methods like `add_clue()`, `has_clue()`, and `get_collected_clues()`. This prevents external room scripts from directly modifying the array, which could lead to malformed data or duplicate entries. 
+
+  Each clue dictionary follows a structured data schema with dedicated key-value pairs:
+  * `id` (e.g., `"C4"`, `"C15"`): Unique alphanumeric string serving as a primary key.
+  * `title` & `description`: Rich narrative strings consumed by the UI.
+  * `scene`: The room origin ID, used to calculate location completeness metrics.
+  * `image_path`: A string path to a sprite asset, allowing the UI to dynamically render Polaroid thumbnails.
+  * `timestamp`: Recorded using `Time.get_ticks_msec() / 1000.0` at the moment of collection. This enables chronological tracking of the player's investigation sequence, providing valuable debugging logs and ordered UI displays."
 
 * **Loose Coupling & Event-Driven Architecture (Observer Pattern):**
-  "To maintain high maintainability, we strictly avoided tight coupling between scene logic and UI overlays. We implemented an **Event-Driven Architecture** utilizing Godot's custom signals:
+  "To write clean, maintainable, and testable code, we utilized an **Event-Driven Architecture (the Observer Pattern)** via Godot's custom signals. The game state singleton acts as the subject/publisher, while the UI panels and rooms act as observers/subscribers. We defined signals such as:
   `signal clue_added(clue: Dictionary)`  
   `signal scene_visited(scene_id: String)`  
-  When a player clicks a hotspot, the room script has zero knowledge of the UI; it simply calls `GameState.add_clue()`. The singleton updates its internal data structure and broadcasts the `clue_added` signal. UI components like the `ClueLogPanel` act as observers, listening for this event and updating themselves reactively. This separation of concerns made it possible for our UI lead, Harsh, and myself to develop features in parallel without merge conflicts."
+
+  When a player clicks an interactive hotspot in a room, the hotspot script only needs to notify the global state: `GameState.add_clue(...)`. The room has absolutely no knowledge of the Clue Log, the Suspect List, or how they are rendered. Once the singleton updates the state, it broadcasts the `clue_added` signal. The `ClueLogPanel` and `RevisitPanel` listen for this signal and automatically refresh their visuals. This loose coupling meant that our team could work in parallel: Harsh could redesign the entire UI layout in isolation, and I could modify the core state logic, without either of us breaking the other's code. It also drastically simplified debugging, as data flow is unidirectional and event-driven."
 
 * **Conditional Gating & Combinatorial Logic:**
-  "To handle complex detective logic, we implemented two software patterns:
-  * **Prerequisite Gating:** In `police_record.gd`, the property cabinet hotspot (Clue `C15`) is physically hidden unless the prerequisite `C4` (Mallory's Address) is registered. This dependency check is evaluated cleanly via `GameState.has_clue("C4")`.
-  * **Asymmetric Clue Combination:** In `film_set.gd`, the room controller monitors the inventory stream. When both pieces of the torn note (`C11` and `C12b`) exist, it triggers a combiner function that deletes the fragments and instantiates a unified `C_TORN_NOTE`. This keeps our game rules deterministic."
-
-* **Deterministic Ending Validation:**
-  "When the player makes an accusation in the Chief's Office, the decision script calls `GameState.get_ending(accused_name)`. It evaluates the inventory against a hard contract:
-  `var required = ["C4", "C11", "C14", "C15"]`
-  If all four are present and Mallory is accused, it returns `Ending.TRUE`. If Felix is accused, it returns `Ending.BAD` (Felix's alibi breaks the case). If Mallory is accused but keys are missing, it returns `Ending.INCOMPLETE`. This deterministic validation ensures no soft-locks and cleanly maps state to game outcome."
-
-* **Project Management Impact:**
-  "Applying these engineering patterns early in **Phase 1 (Core Shell)** dramatically reduced our integration risks. By defining strict API contracts for our state singleton, our dialogue designer, Girish, could write interrogation timelines in **Phase 2** knowing that the underlying inventory flags would consistently gate narrative choices."
+  "To deliver a true detective experience, we programmed dynamic gameplay mechanics using two distinct logical patterns:
+  * **Prerequisite Gating:** In `police_record.gd`, the property records cabinet (Clue `C15`) is physically hidden unless the player has already found Mallory's Address (Clue `C4`). We evaluate this dependency check dynamically at room load via `GameState.has_clue("C4")`. By gating hotspots based on global inventory state rather than hardcoding scene-to-scene dependencies, we keep room controllers highly decoupled and easy to manage.
+  * **Combinatorial Clue Assembly:** In `film_set.gd`, the room script monitors incoming inventory changes. When both fragments of the torn letter (`C11` and `C12b`) are detected in the singleton, it automatically triggers a combination event. The script removes the two fragment dictionaries from the inventory and registers a single, unified `C_TORN_NOTE` ('Assembled Note') card. This demonstrates a mini rule-engine architecture, translating player discovery events into progression milestones without manual intervention."
 
 ---
 
